@@ -1,0 +1,21 @@
+{
+  "name": "web-scraper",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Leonardo Dalcin <leon.dalcin@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "semantic": "semantic-ui#^2.2.3"
+  }
+}

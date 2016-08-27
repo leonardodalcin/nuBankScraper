@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="webScraperApp">
+  <head>
+    <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
+
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script type="text/javascript" src="/bower_components/semantic/dist/semantic.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bower_components/semantic/dist/semantic.min.css">
+
+    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/controllers/index-controller.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+
+  </head>
+  <body ng-controller="indexController">
+    <div class="ui middle aligned center aligned grid vertical-align">
+      <div class="five wide computer sixteen wide mobile sixteen wide tablet column">
+        <h2 class="ui teal image header">
+          <div class="content">
+            Log-in to your account
+          </div>
+        </h2>
+        <form class="ui large form">
+          <div class="ui stacked segment">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input ng-model="loginInfo.user" name="email" placeholder="Username">
+              </div>
+            </div>
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input ng-model="loginInfo.password" type="password" name="password" placeholder="Password">
+              </div>
+            </div>
+            <div ng-click="sub();" class="ui fluid large teal submit button">Login</div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
