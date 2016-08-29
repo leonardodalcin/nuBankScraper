@@ -3,16 +3,27 @@ app.controller('indexController', ['$scope', '$http', function ($scope, $http) {
   $http = $http;
 
   $scope.loginInfo = {
-    user: '1223',
-    password: 'afafa'
+    username: '',
+    password: ''
   }
 
-  $scope.sub = function() {
-    $http.get('http://localhost:3000/scrape',{"msg":"hi"}).success(function(data){
-    console.log(data);
-   });
- }
+  $scope.submit = function() {
+    console.log('Submited username: ', $scope.loginInfo.username + ' password: ', $scope.loginInfo.password )
 
- $scope.sub();
+    $http({
+      url: '/scrape',
+      method: 'GET',
+      params: {loginInfo: $scope.loginInfo} //at server it will be req.query.email
+    }).success(function(data) {
+        parseData(data);
+      },
+      function(error) {
+        console.log('Error: ', error)
+      })
+  }
+
+  function parseData(data) {
+    //do data parsing here, redirect to showData sending the parsed object.
+  }
 
 }]);
