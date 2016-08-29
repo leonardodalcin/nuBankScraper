@@ -2,6 +2,7 @@
 <html ng-app="webScraperApp">
   <head>
     <script type="text/javascript" src="/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-resource/angular-resource.min.js"></script>
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -30,16 +31,24 @@
                 <input ng-model="loginInfo.username" name="email" placeholder="Username">
               </div>
             </div>
-            <div class="field">
+            <!-- <div class="field">
               <div class="ui left icon input">
                 <i class="lock icon"></i>
                 <input ng-model="loginInfo.password" type="password" name="password" placeholder="Password">
               </div>
+            </div> -->
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input ng-model="userData" name="email" placeholder="Username">
+              </div>
             </div>
-            <div ng-click="submit();" class="ui fluid large teal submit button">Login</div>
+            <!-- <div ng-click="submit();" class="ui fluid large teal submit button">Login</div> -->
+            <div ng-click="getData();" class="ui fluid large teal submit button"></div>
           </div>
         </form>
       </div>
+      <h1>{{userData}}</h1>
     </div>
   </body>
 </html>

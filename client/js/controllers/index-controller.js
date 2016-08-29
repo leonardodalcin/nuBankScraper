@@ -1,5 +1,6 @@
-app.controller('indexController', ['$scope', '$http', function ($scope, $http) {
+app.controller('indexController', ['$scope', '$http', '$resource', function ($scope, $http, $resource) {
 
+  var UserData = $resource('/api/userData')
   $http = $http;
 
   $scope.loginInfo = {
@@ -20,6 +21,23 @@ app.controller('indexController', ['$scope', '$http', function ($scope, $http) {
       function(error) {
         console.log('Error: ', error)
       })
+  }
+
+  $scope.getData = function() {
+    UserData.query(function (res) {
+      console.log(res)
+      $scope.userData = res.name;
+    })
+  }
+
+
+  $scope.createUserData = function() {
+    var userData = new UserData();
+    userData.name = "leonardo"
+    console.log(userData);
+    userData.$save(function (res) {
+      console.log(res)
+    })
   }
 
   function parseData(data) {

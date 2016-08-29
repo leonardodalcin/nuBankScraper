@@ -1,10 +1,11 @@
-var express    = require( 'express' ),
-    app        = express();
-    bodyParser = require('body-parser'),
-    mongoose   = require('mongoose'),
-    path = require('path'),
-    phantomjs = require('phantomjs'),
-    assert = require('assert');
+var express            = require( 'express' ),
+    app                = express();
+    bodyParser         = require('body-parser'),
+    assert             = require('assert'),
+    mongoose           = require('mongoose'),
+    userDataController = require('./server/controllers/userData-controller.js');
+
+mongoose.connect('mongodb://localhost:27017/userData')
 
 app.get('/', function( req, res ) {
   res.sendFile( __dirname + '/client/views/index.html' );
@@ -20,43 +21,39 @@ app.use( '/img', express.static( __dirname + '/client/img' ));
 app.use( '/bower_components', express.static( __dirname + '/bower_components' ));
 
 
-
 app.get('/scrape', function(req, res){
 
-  console.log('Started scrape')
-  const Browser = require('zombie');
-
-  const browser = new Browser({
-      waitDuration: 29*1000
-  });
+  var Browser = require('zombie');
 
   var loginInfo = JSON.parse(req.query.loginInfo);
-  var url = 'https://github.com/login'
+  var url = 'https://conta.nubank.com.br/#/login'
 
-  browser.visit(url, function(error) {
-    console.log('Visited url:' + url)
+  Browser.visit(url, function(error, browser) {
+    console.log('Visited url: ' + url)
     browser.userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_3) AppleWebKit/535.20 (KHTML, like Gecko) Chrome/19.0.1036.7 Safari/535.20';
     setTimeout(function () {
       console.log('Asserting visit')
-      browser.assert.text('title', 'Sign in to GitHub · GitHub');
+      browser.assert.text('title', 'Login - Nubank');
       browser
-        .fill('input[id=login_field]', loginInfo.username)
-        console.log(browser.window.document.querySelector('input[id=login_field]').value)
+        .fill('input[id=username]', loginInfo.username)
+        console.log(browser.window.document.querySelector('input[id=username]').value)
       browser
-        .fill('input[id=password]', loginInfo.password)
-        console.log(browser.window.document.querySelector('input[id=password]').value)
+        .fill('input[id=input_001]', loginInfo.password)
+        console.log(browser.window.document.querySelector('input[id=input_001]').value)
       browser
-        .pressButton('input[value="Sign in"]')
-      console.log('Data Sent')
-      browser.dump(process.stderr);
+        .pressButton('button[type=submit]')
+      console.log('Form sent, waiting for page to load')
       setTimeout(function () {
-        console.log('Asserting Login')
+        console.log('Asserting visit')
         browser.dump(process.stderr);
-        browser.assert.text('title', 'GitHub');
+        browser.assert.text('title', 'Transações - Nubank');
       }, 30000)
     }, 30000)
   })
 })
+
+app.post('/api/userData', userDataController.create)
+app.get('/api/userData', userDataController.list)
 
 app.listen( 3000, function() {
   console.log( 'I\'m listening...' );

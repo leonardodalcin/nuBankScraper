@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "angular": "^1.5.8",
-    "semantic": "semantic-ui#^2.2.3"
+    "semantic": "semantic-ui#^2.2.3",
+    "angular-resource": "^1.5.8"
   }
 }
