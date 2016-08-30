@@ -1,7 +1,7 @@
 var UserData = require('../models/userData.js')
 
 module.exports.create = function(req, res) {
-  console.log('creating')
+  console.log(req.body)
   var userData = new UserData(req.body);
   userData.save(function (err, result) {
     res.json(result)

@@ -25,7 +25,7 @@ app.controller('indexController', ['$scope', '$http', '$resource', function ($sc
 
   $scope.getData = function() {
     UserData.query(function (res) {
-      console.log(res)
+      console.log('alo', res)
       $scope.userData = res.name;
     })
   }
